@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+    <head>
+        <title>test</title>
+        <meta charset="UTF-8">
+        <link href="test.css" type="text/css" rel="stylesheet">
+        <script src="https://unpkg.com/vue" type="text/javascript"></script>
+    </head>
+
+    <body id="app">
+        <div id="parent">
+            <child></child>
+        </div>
+        <template id="child" rel="form1">
+            <form>
+                <input type="text" v-model="valdata.data1" data-validate="false" data-erroMsg="" v-val="{rule:valrule.data1,data:valdata.data1}">
+            </form>
+        </template>
+        <script>
+            Vue.directive('val',{
+                bind:function(el,binding,vnode){
+                    var rules = binding.value.rule;
+                    var data = binding.value.data;
+                    var options = {
+                        required:false,
+                        mobile:false,
+                        mail:false,
+                        IDNumber:false,
+                        pattern:null,
+                        max:null,
+                        min:null
+                    };
+                    console.log(data);
+                    console.log(rules);
+                    rules.forEach(function(rule){
+
+                    });
+                    //绑定change事件--->支持 input  select textarea
+                    el.addEventListener('change',function(){
+
+                    })
+                }
+            });
+            var vm = new Vue({
+                el:'#parent',
+                data:function(){
+                    return{
+
+                    }
+                },
+                components:{
+                    child:{
+                        template:'#child',
+                        data () {
+                            return {
+                                valdata:{
+                                  data1:'this is aaaaa'
+                                },
+                                valrule:{
+                                  data1:[
+                                      {rule:{required:true}, errorMsg:'请输入数据'},
+                                      {rule:{max:20,min:5}, errorMsg:'数据不符合长度限制'},
+                                      {rule:{mobile:true,pattern:'/asdasdasd/'}, errorMsg:'请输入符合格式的数据'}
+                                  ]
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+        </script>
+    </body>
+
+</html>
